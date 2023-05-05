@@ -1,0 +1,636 @@
+openapi: 3.0.0
+info:
+  title: Factory-Like 1.0
+  description: |-
+    Aplikasi Manufaktur Sederhana
+  contact:
+    email: ukasah@gmail.com
+  version: 1.0.0
+servers:
+  - url: http://localhost:8000
+    description: Test di dalam computer
+  - url: https://staging.factory-like.com
+    description: Testing
+  - url: https://staging.factory-like.com
+    description: Production
+tags:
+  - name: Product
+    description: Data Product
+  - name: Component
+    description: Data Component
+  - name: Supplier
+    description: Data Supplier
+paths:
+  /products/store:
+    post: 
+      tags:
+        - Product
+      summary:  Mendaftarkan Produk
+      description: Fitur untuk menambahkan sebuah produk
+      operationId: post-create-product
+      requestBody: 
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:   
+                  type: string
+                  example: Mobil Tenaga Listrik
+                description:
+                  type: string
+                  example: Mobil dengan bahan bakar Listrik
+      responses: 
+        "201":
+          description: Product was created!
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: boolean
+                  message: 
+                    type: string
+                  data:
+                    type: object
+                    properties:
+                      id: 
+                        type: integer
+                        example: 1
+                      name:
+                        type: string
+                        example: Mobil Tenaga Listrik
+                      description:
+                        type: string
+                        example: Mobil dengan bahan bakar Listrik
+        "400":   
+          description: Error from user
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: boolean
+                    example: false
+                  message: 
+                    type: string
+                    example: name or description is required!
+                  data:
+                    type: object
+  /products:
+    get:
+      tags:
+      - Product
+      summary: Mendapatkan Semua Produk
+      description: Mendapatkan dan menampilkan semua produk
+      operationId: get-product
+      responses: 
+        "200":
+          description: success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: boolean
+                  message: 
+                    type: string
+                  data:
+                    type: object
+                    properties:
+                      name:
+                        type: string
+                        example: Mobil Tenaga Listrik
+                      description:
+                        type: string
+                        example: Mobil dengan bahan bakar Listrik
+  /products/update/{id}:
+    put: 
+      tags:
+        - Product
+      summary:  Mengubah Nama / Deskripsi Produk
+      description: Fitur untuk Mengubah Nama / Deskripsi Produk
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema: 
+            type: integer
+            example: 1
+          description: id of products
+      operationId: put-update-product
+      requestBody: 
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:   
+                  type: string
+                  example: Mobil Tenaga Surya
+                description:
+                  type: string
+                  example: Mobil dengan bahan bakar kalor
+      responses: 
+        "201":
+          description: Product was Updated!
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: boolean
+                  message: 
+                    type: string
+                  data:
+                    type: object
+                    properties:
+                      id: 
+                        type: integer
+                        example: 1
+                      name:
+                        type: string
+                        example: Mobil Tenaga Surya
+                      description:
+                        type: string
+                        example: Mobil dengan bahan bakar kalor
+        "404":   
+          description: Error from server
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: boolean
+                    example: false
+                  message: 
+                    type: string
+                    example: can't find product with id ${id}!`
+                  data:
+                    type: object
+  /products/destroy/{id}:
+    delete:
+      tags:
+      - Product
+      summary: Menghapus Produk
+      description: Fitur untuk menghapus produk
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema: 
+            type: integer
+            example: 1
+          description: id of products
+      operationId: delete-product
+      responses: 
+        "200":
+          description: Product has been removed!
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: boolean
+                  message: 
+                    type: string
+                  data:
+                    type: object
+                    properties:
+                      name:
+                        type: string
+                        example: Mobil Tenaga Listrik
+                      description:
+                        type: string
+                        example: Mobil dengan bahan bakar Listrik
+        "404":   
+          description: Error from server
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: boolean
+                    example: false
+                  message: 
+                    type: string
+                    example: can't find product with id ${id}!`
+                  data:
+                    type: object
+  /components/store:
+    post: 
+      tags:
+        - Component
+      summary:  Mendaftarkan Komponen
+      description: Fitur untuk menambahkan sebuah komponen
+      operationId: post-create-component
+      requestBody: 
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:   
+                  type: string
+                  example: Komponen Listrik 1
+                description:
+                  type: string
+                  example: Baterai Lithium
+      responses: 
+        "201":
+          description: Component has been created!
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: boolean
+                  message: 
+                    type: string
+                  data:
+                    type: object
+                    properties:
+                      id: 
+                        type: integer
+                        example: 1
+                      name:
+                        type: string
+                        example: Komponen Listrik 1
+                      description:
+                        type: string
+                        example: Baterai Lithium
+        "400":   
+          description: Error from user
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: boolean
+                    example: false
+                  message: 
+                    type: string
+                    example: name or description is required!
+                  data:
+                    type: object
+  /components:
+    get:
+      tags:
+      - Component
+      summary: Mendapatkan Semua Komponen
+      description: Mendapatkan dan menampilkan semua Komponen
+      operationId: get-component
+      responses: 
+        "200":
+          description: success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: boolean
+                  message: 
+                    type: string
+                  data:
+                    type: object
+                    properties:
+                      name:
+                        type: string
+                        example: Komponen Listrik 1
+                      description:
+                        type: string
+                        example: Baterai Lithium
+  /components/update/{id}:
+    put: 
+      tags:
+        - Component
+      summary:  Mengubah Nama / Deskripsi Komponen
+      description: Fitur untuk Mengubah Nama / Deskripsi Komponen
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema: 
+            type: integer
+            example: 1
+          description: id of component
+      operationId: put-update-component
+      requestBody: 
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:   
+                  type: string
+                  example: Komponen Listrik 2
+                description:
+                  type: string
+                  example: Baterai Solid-state
+      responses: 
+        "201":
+          description: Component has been Updated!
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: boolean
+                  message: 
+                    type: string
+                  data:
+                    type: object
+                    properties:
+                      id: 
+                        type: integer
+                        example: 2
+                      name:
+                        type: string
+                        example: Komponen Listrik 2
+                      description:
+                        type: string
+                        example: Baterai Solid-state
+        "404":   
+          description: Error from server
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: boolean
+                    example: false
+                  message: 
+                    type: string
+                    example: can't find component with id ${id}!`
+                  data:
+                    type: object
+  /components/destroy/{id}:
+    delete:
+      tags:
+      - Component
+      summary: Menghapus Komponen
+      description: Fitur untuk menghapus komponen
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema: 
+            type: integer
+            example: 1
+          description: id of components
+      operationId: delete-components
+      responses: 
+        "200":
+          description: Component has been removed!
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: boolean
+                  message: 
+                    type: string
+                  data:
+                    type: object
+                    properties:
+                      name:
+                        type: string
+                        example: Komponen Listrik 2
+                      description:
+                        type: string
+                        example: Baterai Solid-state
+        "404":   
+          description: Error from server
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: boolean
+                    example: false
+                  message: 
+                    type: string
+                    example: can't find component with id ${id}!`
+                  data:
+                    type: object
+  /suppliers/store:
+    post: 
+      tags:
+        - Supplier
+      summary:  Mendaftarkan Supplier
+      description: Fitur untuk menambahkan sebuah supplier
+      operationId: post-create-supplier
+      requestBody: 
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:   
+                  type: string
+                  example: Listrik Supplier
+                address:
+                  type: string
+                  example: No. 9 Jl. Pondok Gede
+      responses: 
+        "201":
+          description: Supplier has been created!
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: boolean
+                  message: 
+                    type: string
+                  data:
+                    type: object
+                    properties:
+                      id: 
+                        type: integer
+                        example: 1
+                      name:
+                        type: string
+                        example: Listrik Supplier
+                      description:
+                        type: string
+                        example: No. 9 Jl. Pondok Gede
+        "400":   
+          description: Error from user
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: boolean
+                    example: false
+                  message: 
+                    type: string
+                    example: name or address is required!
+                  data:
+                    type: object
+  /suppliers:
+    get:
+      tags:
+      - Supplier
+      summary: Mendapatkan Semua Supplier
+      description: Mendapatkan dan menampilkan semua Supplier
+      operationId: get-suppliers
+      responses: 
+        "200":
+          description: success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: boolean
+                  message: 
+                    type: string
+                  data:
+                    type: object
+                    properties:
+                      name:
+                        type: string
+                        example: Listrik Supplier
+                      description:
+                        type: string
+                        example: No. 9 Jl. Pondok Gede
+  /suppliers/update/{id}:
+    put: 
+      tags:
+        - Supplier
+      summary:  Mengubah Nama / Alamat Supplier
+      description: Fitur untuk Mengubah Nama / Alamat Supplier
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema: 
+            type: integer
+            example: 1
+          description: id of component
+      operationId: put-update-suppliers
+      requestBody: 
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:   
+                  type: string
+                  example: Listrik Supplier
+                description:
+                  type: string
+                  example: No. 9 Jl. Pondok Gede
+      responses: 
+        "201":
+          description: Supplier has been Updated!
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: boolean
+                  message: 
+                    type: string
+                  data:
+                    type: object
+                    properties:
+                      id: 
+                        type: integer
+                        example: 1
+                      name:
+                        type: string
+                        example: KListrik Supplier
+                      description:
+                        type: string
+                        example: No. 9 Jl. Pondok Gede
+        "404":   
+          description: Error from server
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: boolean
+                    example: false
+                  message: 
+                    type: string
+                    example: can't find supplier with id ${id}!`
+                  data:
+                    type: object
+  /suppliers/destroy/{id}:
+    delete:
+      tags:
+      - Supplier
+      summary: Menghapus Supplier
+      description: Fitur untuk menghapus Supplier
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema: 
+            type: integer
+            example: 1
+          description: id of components
+      operationId: delete-suppliers
+      responses: 
+        "200":
+          description: Supplier has been removed!
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: boolean
+                  message: 
+                    type: string
+                  data:
+                    type: object
+                    properties:
+                      name:
+                        type: string
+                        example: Komponen Listrik 2
+                      description:
+                        type: string
+                        example: Baterai Solid-state
+        "404":   
+          description: Error from server
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: boolean
+                    example: false
+                  message: 
+                    type: string
+                    example: can't find supplier with id ${id}!`
+                  data:
+                    type: object
+ 
+  
+       
+       

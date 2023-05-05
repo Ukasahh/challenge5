@@ -1,0 +1,94 @@
+### ========== PRODUCTS ===================
+### ========================================
+
+### Get all products
+GET http://localhost:8000/products
+
+
+### Get detail products (by id)
+GET http://localhost:8000/products/1
+
+
+### Create products data
+POST http://localhost:8000/products
+Content-Type: application/json
+
+{
+    "name": "Mobil Tenaga Surya",
+    "description": "Mobil dengan bahan bakar kalor"
+}
+
+### Update products data
+PUT http://localhost:8000/products/1
+Content-Type: application/json
+
+{
+    "name": "Mobil Tenaga Listrik" 
+    // "description": "Ganti description"
+}
+
+### Delete products data
+DELETE http://localhost:8000/products/2
+
+
+### ========== SUPPLIERS ===================
+### ========================================
+
+### Get all suppliers
+GET http://localhost:8000/suppliers
+
+### Get detail products (by id)
+GET http://localhost:8000/suppliers/1
+
+
+### Create suppliers data
+POST http://localhost:8000/suppliers
+Content-Type: application/json
+
+{
+    "name": "Listrik Supplier",
+    "address": "No. 9 Jl. Pondok Gede"
+}
+
+### Update suppliers data
+PUT http://localhost:8000/suppliers/1
+Content-Type: application/json
+
+{
+    "name": "Listrik Suppliers 1" 
+    // "description": "Ganti description"
+}
+
+### Delete products data
+DELETE http://localhost:8000/products/2
+
+### ========== COMPONENTS ===================
+### ========================================
+
+### Get all component
+GET http://localhost:8000/components
+
+### Get detail components (by id)
+GET http://localhost:8000/components/1
+
+
+### Create components data
+POST http://localhost:8000/components
+Content-Type: application/json
+
+{
+    "name": "Komponen Listrik 1",
+    "description": "Baterai Lithium"
+}
+
+### Update components data
+PUT http://localhost:8000/components/1
+Content-Type: application/json
+
+{
+    "name": "Komponen Listrik Baterai" 
+    // "description": "Ganti description"
+}
+
+### Delete components data
+DELETE http://localhost:8000/components/2
